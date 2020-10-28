@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -103,20 +104,20 @@ class BookController extends Controller
     {
         $data = $request -> all();
 
-        // $request->validate([
-        //     'title' => "required|max:30",
-        //     'author' => "required|max:50",
-        //     'pages' => "required",
-        //     'edition' => "required|max:50",
-        //     'year' => "required|date",
-        //     'isbn' => [
-        //         'required',
-        //         Rule::unique('books')->ignore($id)
-        //     ],
-        //     'genre' => "required|max:30",
-        //     'image' => "required",
+        $request->validate([
+            'title' => "required|max:30",
+            'author' => "required|max:50",
+            'pages' => "required",
+            'edition' => "required|max:50",
+            'year' => "required|date",
+            'isbn' => [
+                'required',
+                Rule::unique('books')->ignore($id)
+            ],
+            'genre' => "required|max:30",
+            'image' => "required",
 
-        // ]);
+        ]);
 
         $book = Book::find($id); //SELECT * FROM books WHERE id = $id
         
@@ -130,7 +131,7 @@ class BookController extends Controller
         $book->image = $data['image'];
 
         $book->update();
-        return redirect()->route('books.index');
+        return redirect()->route('books.show', $book);
     }
 
     /**
@@ -141,6 +142,10 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id); //SELECT * FROM books WHERE id = $id
+
+        $book->delete();
+
+        return redirect()->route('books.index');
     }
 }

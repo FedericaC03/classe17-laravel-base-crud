@@ -6,5 +6,12 @@
 <li>Casa editrice: {{$book ->edition}}</li>
 <li>Genere: {{$book ->genre}}</li>
 <li>Numero di pagine: {{$book ->pages}}</li>
-
 </ul>
+
+<form action="{{route("books.destroy", $book->id)}}" method="POST">
+
+    @method("DELETE")
+    @csrf
+    <input type="submit" value="Cancella">
+
+</form>
