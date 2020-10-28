@@ -1,10 +1,10 @@
 <ul>
-<li> <img src="{{$book ->image}}" alt=""> </li>
-<li>{{$book ->title}}</li>
-<li>{{$book ->author}}</li>
-<li>{{$book ->year}}</li>
-<li>{{$book ->edition}}</li>
-<li>{{$book ->genre}}</li>
-<li>{{$book ->pages}}</li>
+<li style="list-style: none"> <img src="{{$book ->image}}" alt=""> </li>
+<li>Titolo: {{$book ->title}}</li>
+<li>Autore: {{$book ->author}}</li>
+<li>Anno di pubblicazione: {{$book ->year}}</li>
+<li>Casa editrice: {{$book ->edition}}</li>
+<li>Genere: {{$book ->genre}}</li>
+<li>Numero di pagine: {{$book ->pages}}</li>
 
 </ul>
