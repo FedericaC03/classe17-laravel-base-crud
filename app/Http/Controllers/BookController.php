@@ -38,6 +38,19 @@ class BookController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
+
+        $request->validate([
+            'title' => "required|max:30",
+            'author' => "required|max:50",
+            'pages' => "required",
+            'edition' => "required|max:50",
+            'year' => "required|date",
+            'isbn' => "required|unique:books|max:13",
+            'genre' => "required|max:30",
+            'image' => "required",
+
+        ]);
+
         $book = new Book;
         $book->title = $data['title'];
         $book->author = $data['author'];
@@ -49,18 +62,20 @@ class BookController extends Controller
         $book->image = $data['image'];
         $book->save();
         
-        dd($book);
+        return redirect()->route('books.show', $book);
     }
 
     /**
      * Display the specified resource.
-     *
+     
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $book = Book::find($id); //SELECT * FROM books WHERE id = $id
+
+        return view("show", compact('book'));
     }
 
     /**
